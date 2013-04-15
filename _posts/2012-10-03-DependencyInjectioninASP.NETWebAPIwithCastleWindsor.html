@@ -250,4 +250,47 @@ wouldn't it be more appropriate to go in Application_Start?<br>
 	<div class="comment-date">2013-04-12 16:01 UTC</div>
 </div>
 
+
+
+<div class="comment">
+	<div class="comment-author"><a href="http://www.redturtle.co.uk">Will Webster</a></div>
+	<div class="comment-content">Cheers for the links and the info. Straight forward when you know how. I now have the code below as my WEB API installer.
+
+	<br/>
+
+	<pre>
+
+	    public void Install(IWindsorContainer container, IConfigurationStore store)
+	    {
+	        container.Register(
+	                Classes.FromThisAssembly()
+	                .BasedOn<ApiController>()
+	                .LifestylePerWebRequest());
+	    }
+
+	</pre>
+
+	<br/>
+
+	I am using my WebApiControllersInstaller with another installer based on inteface conventions (more installers to follow I am sure). My WebApiApplication constructor now looks like this (moved the instantiation of the container to a seperate line as I found I was overriding it by mistake :$ )
+
+	<pre>
+
+        public WebApiApplication()
+        {
+            container = new WindsorContainer();
+            container.Install(new WebApiControllersInstaller());
+            container.Install(new InterfaceConventionInstaller(GetAssemblies()));
+
+        }
+
+	</pre>
+
+	Thanks for your help.. I plan on checking out your book. Would be great to get a better unstanding on DI under the hood.
+
+
+</div>
+	<div class="comment-date">2013-04-15 10:33 UTC</div>
+</div>
+
 </div>
